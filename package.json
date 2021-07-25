@@ -1,5 +1,11 @@
 {
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/watscho/react-18-redux-redux-saga-csr-ssr-boilerplate"
+  },
+  "bugs": "https://github.com/watscho/react-18-redux-redux-saga-csr-ssr-boilerplate/issues",
+  "author": "Watscho Aiwasov",
   "workspaces": [
     "workspaces/app"
   ],
