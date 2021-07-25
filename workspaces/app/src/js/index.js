@@ -9,7 +9,7 @@ import 'app/i18n'
 import { App } from 'app/App'
 import { configureStore } from 'app/redux'
 import { rootSaga } from 'app/redux/sagas'
-import { register, unregister } from 'app/service-worker'
+import { register } from 'app/service-worker'
 
 const { store } = configureStore(window.__REDUX_STATE__)
 
