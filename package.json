@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "workspaces": [
+    "workspaces/app"
+  ],
+  "scripts": {
+    "start": "cd workspaces/app && webpack serve",
+    "start:ssr": "cd workspaces/app && cross-env SSR=true webpack --watch",
+    "build": "cd workspaces/app && cross-env NODE_ENV=production webpack --progress",
+    "build:ssr": "cd workspaces/app && cross-env NODE_ENV=production SSR=true webpack --progress"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "license": "MIT"
+}

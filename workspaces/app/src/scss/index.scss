@@ -1,0 +1,61 @@
+@import 'limbo-css/dist/sass/limbo';
+
+@import 'fonts', 'variables', 'mixin';
+
+* {
+  transition: opacity 0.2s ease, 
+    background-color 0.2s ease, 
+    fill 0.2s ease,
+    border-color 0.2s ease;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+}
+*::-webkit-scrollbar-track {
+  box-shadow: none;
+  border-radius: 3px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba($color: $black, $alpha: 0.2);
+  border-radius: 3px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba($color: $black, $alpha: 0.3);
+}
+
+input::-webkit-input-placeholder {
+  transition: text-indent 0.2s ease;
+}
+input::-moz-placeholder {
+  transition: text-indent 0.2s ease;
+}
+input:-ms-input-placeholder {
+  transition: text-indent 0.2s ease;
+}
+input:-moz-placeholder {
+  transition: text-indent 0.2s ease;
+}
+
+input:focus::-webkit-input-placeholder {
+  text-indent: -100%;
+}
+input:focus::-moz-placeholder {
+  text-indent: -100%;
+}
+input:focus:-ms-input-placeholder {
+  text-indent: -100%;
+}
+input:focus:-moz-placeholder {
+  text-indent: -100%;
+}
+
+body {
+  font-family: $font;
+  color: $black;
+  font-size: 14px;
+}
+
+:global {
+  @import 'components/**/*';
+}
