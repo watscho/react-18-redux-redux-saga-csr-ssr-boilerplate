@@ -340,7 +340,7 @@ const server = {
     new NodemonPlugin({
       script: wsAbs('public/main.js'),
       watch: abs('server'),
-      ext: 'js,jsx,json'
+      ext: 'js'
     }),
     ...plugins
   ],
