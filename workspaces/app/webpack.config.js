@@ -291,7 +291,7 @@ const client = {
         recursive: true
       }
     }),
-    !isProduction && !isSSR && new HotModuleReplacementPlugin(),
+    !isProduction && new HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin(htmlWebpackPlugin),
     isProduction &&
       new CopyPlugin({
