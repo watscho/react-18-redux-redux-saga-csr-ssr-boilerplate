@@ -17,6 +17,7 @@ export const PostList = () => {
           {data.map(({ id, title, body }) => (
             <PostItem key={id} id={id} title={title} body={body} />
           ))}
+          {!data.length && <p className={scss.noRecord}>No records</p>}
         </div>
       )}
     </>
