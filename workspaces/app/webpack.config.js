@@ -1,5 +1,6 @@
 'use strict'
 
+const fs = require('fs')
 const path = require('path')
 const {
   DefinePlugin,
@@ -181,7 +182,8 @@ const devServer = {
   https: false,
   noInfo: true,
   host: 'localhost',
-  port: 3000
+  port: 3000,
+  before: () => fs.rm(wsAbs('./public'), { recursive: true }, () => {})
 }
 
 const htmlWebpackPlugin = {
