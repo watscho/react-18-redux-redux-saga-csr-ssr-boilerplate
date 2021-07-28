@@ -9,7 +9,7 @@ export const dispatchSagas = ({ req, store }) => {
 
   store.dispatch(authFetchRequested())
 
-  for (let i = 0; i < branch.length; i++) {
+  for (let i = 0; i < branch?.length; i++) {
     const { route, params } = branch[i]
 
     route.dispatch &&
