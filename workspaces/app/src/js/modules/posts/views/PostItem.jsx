@@ -1,8 +1,15 @@
 import PropTypes from 'prop-types'
 
+import { PostDeleteBtn } from './PostDeleteBtn'
+
+import scss from 'scss/modules/posts'
+
 export const PostItem = ({ id, title, body }) => (
   <article>
-    <i>ID: {id}</i>
+    <div className={scss.top}>
+      <i>ID: {id}</i>
+      <PostDeleteBtn id={id} />
+    </div>
     <h2>{title}</h2>
     <p>{body}</p>
   </article>

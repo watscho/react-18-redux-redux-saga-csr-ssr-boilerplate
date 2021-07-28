@@ -21,10 +21,20 @@
   &:last-child {
     margin-bottom: 0;
   }
-  i {
-    display: block;
+  .top {
+    display: flex;
+    justify-content: space-between;
     padding: 4px 5px;
-    font-family: $fontCaps;
+    i {
+      font-family: $fontCaps;
+    }
+    button {
+      padding: 0 5px;
+      font-size: 12px;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
   h2 {
     font-size: 16px;

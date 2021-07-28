@@ -3,7 +3,10 @@ import { call, put, take, fork, select } from 'redux-saga/effects'
 import {
   postsFetchSucceeded,
   postsFetchFailed,
-  postsFetchRequested
+  postsFetchRequested,
+  postDeleteSucceeded,
+  postDeleteFailed,
+  postDeleteRequested
 } from '../actions'
 
 import { postService } from 'services'
@@ -22,10 +25,28 @@ function* fetchPosts() {
   }
 }
 
-export default function* watcher() {
-  while (true) {
-    yield take(postsFetchRequested().type)
+function* deletePost({ payload }) {
+  try {
+    const response = yield call(postService.deletePost, { payload })
 
-    yield fork(fetchPosts)
+    yield put(postDeleteSucceeded({ data: response.data }))
+  } catch (errors) {
+    yield put(postDeleteFailed({ errors }))
+  }
+}
+
+export default function* watcher() {
+  const actions = {
+    [postsFetchRequested().type]: fetchPosts,
+    [postDeleteRequested().type]: deletePost
+  }
+
+  while (true) {
+    const { type, payload } = yield take([
+      postsFetchRequested().type,
+      postDeleteRequested().type
+    ])
+
+    yield fork(actions[type], { payload })
   }
 }
