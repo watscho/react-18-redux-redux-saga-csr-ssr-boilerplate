@@ -1,7 +1,7 @@
 import {
-  ARTICLES_FETCH_SUCCEEDED,
-  ARTICLES_FETCH_FAILED,
-  RESET_ARTICLES
+  POSTS_FETCH_SUCCEEDED,
+  POSTS_FETCH_FAILED,
+  RESET_POSTS
 } from '../actions/types'
 
 const initialState = {
@@ -10,19 +10,19 @@ const initialState = {
   loading: true
 }
 
-export default function articles(state = initialState, action) {
+export default function posts(state = initialState, action) {
   const actionTypes = {
-    [ARTICLES_FETCH_SUCCEEDED]: {
+    [POSTS_FETCH_SUCCEEDED]: {
       ...state,
       ...action.payload,
       loading: false
     },
-    [ARTICLES_FETCH_FAILED]: {
+    [POSTS_FETCH_FAILED]: {
       ...state,
       ...action.payload,
       loading: false
     },
-    [RESET_ARTICLES]: {
+    [RESET_POSTS]: {
       ...state,
       ...initialState
     },

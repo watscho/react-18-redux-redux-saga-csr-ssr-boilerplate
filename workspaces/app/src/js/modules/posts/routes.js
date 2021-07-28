@@ -1,6 +1,6 @@
 import { ctxImportToObject } from 'helpers/context'
 
-import { articlesFetchRequested } from './actions'
+import { postsFetchRequested } from './actions'
 
 const modules = ctxImportToObject([
   require.context('./', true, /\.\/views\/\w+\.jsx$/),
@@ -10,8 +10,8 @@ const modules = ctxImportToObject([
 export default [
   {
     exact: true,
-    path: 'articles',
-    element: <modules.Articles />,
-    dispatch: ({ store: { dispatch } }) => dispatch(articlesFetchRequested())
+    path: 'posts',
+    element: <modules.Posts />,
+    dispatch: ({ store: { dispatch } }) => dispatch(postsFetchRequested())
   }
 ]

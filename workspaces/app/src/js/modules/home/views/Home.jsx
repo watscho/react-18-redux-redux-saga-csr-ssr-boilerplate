@@ -8,7 +8,7 @@ export const Home = () => {
 
   return (
     <div className="home">
-      <Link to="articles">{t('articles')}</Link>
+      <Link to="posts">{t('posts')}</Link>
       <h1>{t('home')}</h1>
     </div>
   )
