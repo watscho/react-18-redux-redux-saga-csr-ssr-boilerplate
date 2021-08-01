@@ -5,5 +5,7 @@ export const postTransformer = {
       userId,
       title,
       body
-    }))
+    })),
+
+  createPost: ({ id }) => ({ id })
 }

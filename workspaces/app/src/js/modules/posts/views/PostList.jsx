@@ -14,8 +14,8 @@ export const PostList = () => {
       {(loading || errors) && <p className={scss.loading}>Loading...</p>}
       {!loading && (
         <div className={scss.list}>
-          {data.map(({ id, title, body }) => (
-            <PostItem key={id} id={id} title={title} body={body} />
+          {data.map(({ id, title, body }, idx) => (
+            <PostItem key={idx} id={id} title={title} body={body} />
           ))}
           {!data.length && <p className={scss.noRecord}>No records</p>}
         </div>

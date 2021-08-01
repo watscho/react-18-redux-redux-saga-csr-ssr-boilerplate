@@ -4,7 +4,12 @@ import {
   RESET_POSTS
 } from '../actions/types'
 
-import { postDeleteRequested, postUpdateRequested } from '../actions'
+import {
+  postCreateRequested,
+  postCreateSucceeded,
+  postUpdateRequested,
+  postDeleteRequested
+} from '../actions'
 
 const initialState = {
   data: [],
@@ -24,9 +29,28 @@ export default function posts(state = initialState, action) {
       ...action.payload,
       loading: false
     },
-    [postDeleteRequested().type]: {
+    [postCreateRequested().type]: {
       ...state,
-      data: state.data.filter(({ id }) => id !== action.payload?.id)
+      data: [
+        {
+          id: Infinity,
+          title: action.payload?.data?.title,
+          body: action.payload?.data?.body
+        },
+        ...state.data
+      ]
+    },
+    [postCreateSucceeded().type]: {
+      ...state,
+      data: state.data.map(({ id, title, body }) => {
+        let data = { id, title, body }
+        if (id === Infinity) {
+          data.id = parseInt(
+            `${action.payload?.data?.id}${Math.floor(Math.random() * 32767)}`
+          )
+        }
+        return data
+      })
     },
     [postUpdateRequested().type]: {
       ...state,
@@ -38,6 +62,10 @@ export default function posts(state = initialState, action) {
         }
         return data
       })
+    },
+    [postDeleteRequested().type]: {
+      ...state,
+      data: state.data.filter(({ id }) => id !== action.payload?.id)
     },
     [RESET_POSTS]: {
       ...state,
