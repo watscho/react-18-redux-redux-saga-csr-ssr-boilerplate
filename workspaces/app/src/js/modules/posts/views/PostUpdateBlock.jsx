@@ -24,18 +24,24 @@ export const PostUpdateBlock = ({ id, title, body, blockName }) => {
   return (
     <div className={scss.formContainer}>
       <form method="POST" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <p>Title</p>
-        <input
-          defaultValue={title}
-          className={errors.title ? scss.error : ''}
-          {...register('title', { required: true })}
-        />
-        <p>Description</p>
-        <textarea
-          defaultValue={body}
-          className={errors.body ? scss.error : ''}
-          {...register('body', { required: true })}
-        />
+        <label htmlFor="title">
+          <span>Title</span>
+          <input
+            id="title"
+            defaultValue={title}
+            className={errors.title ? scss.error : ''}
+            {...register('title', { required: true })}
+          />
+        </label>
+        <label htmlFor="body">
+          <span>Description</span>
+          <textarea
+            id="body"
+            defaultValue={body}
+            className={errors.body ? scss.error : ''}
+            {...register('body', { required: true })}
+          />
+        </label>
         <button type="submit">save</button>
       </form>
     </div>

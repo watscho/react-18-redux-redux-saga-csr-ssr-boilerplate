@@ -13,7 +13,8 @@
     display: flex;
     flex-direction: column;
     padding: 0 10px;
-    p {
+    span {
+      display: block;
       padding: 10px 5px 5px 5px;
     }
     input,
