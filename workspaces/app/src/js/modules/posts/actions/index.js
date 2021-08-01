@@ -2,6 +2,9 @@ import {
   POSTS_FETCH_REQUESTED,
   POSTS_FETCH_SUCCEEDED,
   POSTS_FETCH_FAILED,
+  POST_FETCH_REQUESTED,
+  POST_FETCH_SUCCEEDED,
+  POST_FETCH_FAILED,
   POST_CREATE_REQUESTED,
   POST_CREATE_SUCCEEDED,
   POST_CREATE_FAILED,
@@ -11,7 +14,8 @@ import {
   POST_DELETE_REQUESTED,
   POST_DELETE_SUCCEEDED,
   POST_DELETE_FAILED,
-  RESET_POSTS
+  RESET_POSTS,
+  RESET_POST
 } from './types'
 
 export const postsFetchRequested = () => ({
@@ -23,6 +27,19 @@ export const postsFetchSucceeded = content => ({
 })
 export const postsFetchFailed = content => ({
   type: POSTS_FETCH_FAILED,
+  payload: content
+})
+
+export const postFetchRequested = content => ({
+  type: POST_FETCH_REQUESTED,
+  payload: content
+})
+export const postFetchSucceeded = content => ({
+  type: POST_FETCH_SUCCEEDED,
+  payload: content
+})
+export const postFetchFailed = content => ({
+  type: POST_FETCH_FAILED,
   payload: content
 })
 
@@ -67,4 +84,8 @@ export const postDeleteFailed = content => ({
 
 export const resetPosts = () => ({
   type: RESET_POSTS
+})
+
+export const resetPost = () => ({
+  type: RESET_POST
 })

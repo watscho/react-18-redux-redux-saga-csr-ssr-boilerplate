@@ -8,8 +8,6 @@ import scss from 'scss/modules/posts'
 export const Posts = () => {
   const { t } = useTranslation()
 
-  console.log('render - Posts')
-
   return (
     <div className={scss.posts}>
       <PostCreateBlock />

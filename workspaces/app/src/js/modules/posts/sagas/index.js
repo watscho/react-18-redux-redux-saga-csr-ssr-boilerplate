@@ -4,6 +4,9 @@ import {
   postsFetchSucceeded,
   postsFetchFailed,
   postsFetchRequested,
+  postFetchSucceeded,
+  postFetchFailed,
+  postFetchRequested,
   postCreateSucceeded,
   postCreateFailed,
   postCreateRequested,
@@ -28,6 +31,20 @@ function* fetchPosts() {
     yield put(postsFetchSucceeded({ data: response.data }))
   } catch (errors) {
     yield put(postsFetchFailed({ errors }))
+  }
+}
+
+function* fetchPost({ payload }) {
+  try {
+    const post = yield select(({ post }) => post)
+
+    if (post.data && parseInt(post.data.id) === parseInt(payload.id)) return
+
+    const response = yield call(postService.fetchPost, { payload })
+
+    yield put(postFetchSucceeded({ data: response.data }))
+  } catch (errors) {
+    yield put(postFetchFailed({ errors }))
   }
 }
 
@@ -64,6 +81,7 @@ function* deletePost({ payload }) {
 export default function* watcher() {
   const actions = {
     [postsFetchRequested().type]: fetchPosts,
+    [postFetchRequested().type]: fetchPost,
     [postCreateRequested().type]: createPost,
     [postUpdateRequested().type]: updatePost,
     [postDeleteRequested().type]: deletePost
@@ -72,6 +90,7 @@ export default function* watcher() {
   while (true) {
     const { type, payload } = yield take([
       postsFetchRequested().type,
+      postFetchRequested().type,
       postCreateRequested().type,
       postUpdateRequested().type,
       postDeleteRequested().type

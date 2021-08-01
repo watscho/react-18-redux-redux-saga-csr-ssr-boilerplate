@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { IsDisplayed } from 'components'
@@ -16,6 +17,7 @@ export const PostItem = ({ id, title, body }) => {
       <div className={scss.top}>
         <i>ID: {id}</i>
         <div className={scss.actions}>
+          <Link to={`/posts/${id}/view`}>view</Link>
           <IsDisplayed name={blockName}>
             <PostUpdateBtn blockName={blockName} />
           </IsDisplayed>

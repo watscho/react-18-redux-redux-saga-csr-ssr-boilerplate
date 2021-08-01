@@ -17,6 +17,20 @@ export const postService = {
     }
   },
 
+  fetchPost: async ({ payload }) => {
+    const url = process.env.API_FETCH_POST.replace(':id', payload.id)
+
+    const response = await fetch(url)
+
+    const data = await response.json()
+
+    return {
+      data: response.ok ? postTransformer.fetchPost(data) : data,
+      ok: response.ok,
+      status: response.status
+    }
+  },
+
   createPost: async ({ payload }) => {
     const url = process.env.API_CREATE_POST
 
