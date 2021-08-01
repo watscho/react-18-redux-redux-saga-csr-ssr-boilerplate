@@ -1,5 +1,6 @@
 import {
   SET_COOKIES,
+  SET_VISIBILITY,
   AUTH_FETCH_REQUESTED,
   AUTH_FETCH_SUCCEEDED,
   AUTH_FETCH_FAILED,
@@ -15,6 +16,11 @@ import {
 
 export const setCookies = content => ({
   type: SET_COOKIES,
+  payload: content
+})
+
+export const setVisibility = content => ({
+  type: SET_VISIBILITY,
   payload: content
 })
 

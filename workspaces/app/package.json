@@ -87,6 +87,7 @@
     "react-cookie": "^4.0.3",
     "react-dom": "^18.0.0-alpha-bfa50f827-20210712",
     "react-helmet-async": "^1.0.9",
+    "react-hook-form": "^7.12.2",
     "react-i18next": "^11.11.3",
     "react-inlinesvg": "^2.3.0",
     "react-redux": "^7.2.4",

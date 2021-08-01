@@ -10,7 +10,7 @@ export const PostDeleteBtn = ({ id }) => {
 
   return (
     <button type="button" onClick={listenDeleteBtn}>
-      X
+      delete
     </button>
   )
 }

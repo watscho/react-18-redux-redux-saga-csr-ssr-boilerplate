@@ -33,11 +33,14 @@
       i {
         font-family: $fontCaps;
       }
-      button {
-        padding: 0 5px;
-        font-size: 12px;
-        &:hover {
-          opacity: 0.8;
+      .actions {
+        display: flex;
+        button {
+          padding: 0 5px;
+          font-size: 12px;
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
     }
@@ -51,6 +54,42 @@
     p {
       line-height: 1.4;
       padding: 0 10px;
+    }
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      padding: 0 10px;
+      p {
+        padding: 10px 5px 5px 5px;
+      }
+      input,
+      textarea,
+      button {
+        width: 100%;
+        max-width: 500px;
+        border: 1px solid #000;
+        border-radius: 3px;
+      }
+      input {
+        height: 25px;
+        padding: 0 5px;
+      }
+      textarea {
+        min-height: 100px;
+        padding: 5px;
+      }
+      input.error,
+      textarea.error {
+        border-color: red;
+      }
+      button {
+        margin-top: 10px;
+        border: 1px solid #000;
+        padding: 7px;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
     }
   }
 }

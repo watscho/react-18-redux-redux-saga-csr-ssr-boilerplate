@@ -4,7 +4,7 @@ import {
   RESET_POSTS
 } from '../actions/types'
 
-import { postDeleteRequested } from '../actions'
+import { postDeleteRequested, postUpdateRequested } from '../actions'
 
 const initialState = {
   data: [],
@@ -27,6 +27,17 @@ export default function posts(state = initialState, action) {
     [postDeleteRequested().type]: {
       ...state,
       data: state.data.filter(({ id }) => id !== action.payload?.id)
+    },
+    [postUpdateRequested().type]: {
+      ...state,
+      data: state.data.map(({ id, title, body }) => {
+        let data = { id, title, body }
+        if (id === action.payload?.id) {
+          data.title = action.payload?.data?.title
+          data.body = action.payload?.data?.body
+        }
+        return data
+      })
     },
     [RESET_POSTS]: {
       ...state,
