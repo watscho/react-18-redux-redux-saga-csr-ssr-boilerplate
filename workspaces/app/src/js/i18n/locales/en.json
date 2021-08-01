@@ -3,6 +3,7 @@
     "homePage": "Home - page",
     "home": "Home",
     "postsPage": "Posts - page",
-    "posts": "Posts"
+    "posts": "Posts",
+    "postViewPage": "{{ title }} | Post - page"
   }
 }
