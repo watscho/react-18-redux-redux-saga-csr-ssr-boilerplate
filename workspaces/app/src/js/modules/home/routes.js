@@ -7,7 +7,6 @@ const modules = ctxImportToObject([
 
 export default [
   {
-    exact: true,
     path: '/',
     element: <modules.Home />
   }

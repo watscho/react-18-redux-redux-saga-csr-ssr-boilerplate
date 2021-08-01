@@ -9,7 +9,6 @@ const modules = ctxImportToObject([
 
 export default [
   {
-    exact: true,
     path: 'posts',
     element: <modules.Posts />,
     dispatch: ({ store: { dispatch } }) => dispatch(postsFetchRequested())

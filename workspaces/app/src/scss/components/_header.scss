@@ -1,3 +1,20 @@
-header {
+header.header {
   display: flex;
+  padding: 20px 10px;
+  nav ul {
+    display: flex;
+    li {
+      margin: 0 10px;
+      a {
+        display: flex;
+        padding: 5px 10px;
+        border-radius: 3px;
+        border: 1px solid #000;
+        &:hover,
+        &.active {
+          background-color: #f7dbdb;
+        }
+      }
+    }
+  }
 }
