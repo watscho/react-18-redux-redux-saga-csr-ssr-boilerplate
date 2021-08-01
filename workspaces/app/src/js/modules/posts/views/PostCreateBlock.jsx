@@ -29,16 +29,22 @@ export const PostCreateBlock = () => {
           onSubmit={handleSubmit(onSubmit)}
           autoComplete="off"
         >
-          <p>Title</p>
-          <input
-            className={errors.title ? scss.error : ''}
-            {...register('title', { required: true })}
-          />
-          <p>Description</p>
-          <textarea
-            className={errors.body ? scss.error : ''}
-            {...register('body', { required: true })}
-          />
+          <label htmlFor="title">
+            <span>Title</span>
+            <input
+              id="title"
+              className={errors.title ? scss.error : ''}
+              {...register('title', { required: true })}
+            />
+          </label>
+          <label htmlFor="body">
+            <span>Description</span>
+            <textarea
+              id="body"
+              className={errors.body ? scss.error : ''}
+              {...register('body', { required: true })}
+            />
+          </label>
           <button type="submit">create</button>
         </form>
       </div>
