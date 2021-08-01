@@ -1,0 +1,1 @@
+export { ifetch } from './ifetch'
