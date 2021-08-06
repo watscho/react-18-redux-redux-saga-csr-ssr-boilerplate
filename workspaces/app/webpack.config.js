@@ -59,7 +59,7 @@ const paths = {
   js: isProduction
     ? `js/${patterns.nameFullhash}.js`
     : `js/${patterns.name}.js`,
-  js2: isProduction ? `${patterns.nameFullhash}.js` : `${patterns.name}.js`
+  serverJs: isProduction ? `${patterns.nameFullhash}.js` : `${patterns.name}.js`
 }
 
 const loaders = [
@@ -331,7 +331,7 @@ const server = {
   entry: abs('server'),
   output: {
     path: wsAbs('public'),
-    filename: paths.js2,
+    filename: paths.serverJs,
     publicPath: paths.public,
     assetModuleFilename: paths.asset
   },
