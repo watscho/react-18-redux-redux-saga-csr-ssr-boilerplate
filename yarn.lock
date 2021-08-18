@@ -6684,6 +6684,11 @@ postcss@^8.2.15, postcss@^8.3.5, postcss@^8.3.6:
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
 
+preload-webpack-plugin-stzhang@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/preload-webpack-plugin-stzhang/-/preload-webpack-plugin-stzhang-1.0.1.tgz#f746a01c84d1f8aabb9e188bc6a80d5f51392781"
+  integrity sha512-hQ7bv8bXbmOdplOJteW1iVRFiN5YkOeMW5pIiZnC3X+RWwRxUb9tOUM3JkVmjOQ9t1xpZF1dtvqDEp3EYnm4vQ==
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"

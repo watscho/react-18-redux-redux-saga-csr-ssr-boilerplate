@@ -59,6 +59,7 @@
     "postcss-preset-env": "^6.7.0",
     "postcss-safe-parser": "^6.0.0",
     "postcss-scss": "^4.0.0",
+    "preload-webpack-plugin-stzhang": "^1.0.1",
     "prettier": "^2.3.2",
     "remove-files-webpack-plugin": "^1.4.5",
     "sass": "^1.36.0",

@@ -21,6 +21,7 @@ const WebpackAssetsManifest = require('webpack-assets-manifest')
 const WebpackPwaManifest = require('@f-fjs/webpack-pwa-manifest')
 const { InjectManifest } = require('workbox-webpack-plugin')
 const RemovePlugin = require('remove-files-webpack-plugin')
+const PreloadWebpackPlugin = require('preload-webpack-plugin-stzhang')
 
 const pwaManifest = require('./public/manifest.json')
 
@@ -171,7 +172,13 @@ const plugins = [
   new DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(mode)
   }),
-  new IgnorePlugin(/^\.\/locale$/, /moment$/)
+  new IgnorePlugin(/^\.\/locale$/, /moment$/),
+  isProduction &&
+    new PreloadWebpackPlugin({
+      as: 'font',
+      include: 'allAssets',
+      fileWhitelist: [/\.woff2/]
+    })
 ].filter(Boolean)
 
 const devServer = {
