@@ -1,5 +1,5 @@
-import { ctxImportToSvg } from 'helpers/context'
+import { ctxToSvg } from 'helpers/context'
 
-export const icons = ctxImportToSvg(
+export const icons = ctxToSvg(
   require.context('!!svg-inline-loader!imgs', true, /^\.\/.*\.svg$/)
 )

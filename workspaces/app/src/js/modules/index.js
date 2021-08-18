@@ -1,23 +1,17 @@
-import { ctxImportToObject, ctxImportToArray } from 'helpers/context'
+import { ctxToObject, ctxToArray } from 'helpers/context'
 
-const mergeValues = true
-
-export const modules = ctxImportToObject(
-  require.context('./', true, /\.\/\w+\/index\.js$/),
-  { mergeValues }
+export const modules = ctxToObject(
+  require.context('./', true, /\.\/\w+\/index\.js$/)
 )
 
-export const routes = ctxImportToArray(
-  require.context('./', true, /\.\/\w+\/routes\.js$/),
-  { mergeValues }
+export const routes = ctxToArray(
+  require.context('./', true, /\.\/\w+\/routes\.js$/)
 )
 
-export const reducers = ctxImportToObject(
-  require.context('./', true, /\.\/\w+\/reducers\/index\.js$/),
-  { mergeValues }
+export const reducers = ctxToObject(
+  require.context('./', true, /\.\/\w+\/reducers\/index\.js$/)
 )
 
-export const sagas = ctxImportToArray(
-  require.context('./', true, /\.\/\w+\/sagas\/index\.js$/),
-  { mergeValues }
+export const sagas = ctxToArray(
+  require.context('./', true, /\.\/\w+\/sagas\/index\.js$/)
 )

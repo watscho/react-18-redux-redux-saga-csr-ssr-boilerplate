@@ -1,5 +1,3 @@
-import { ctxImportToArray } from 'helpers/context'
+import { ctxToArray } from 'helpers/context'
 
-export default ctxImportToArray(
-  require.context('./', true, /\.\/\w+(?<!index)\.js$/)
-)
+export default ctxToArray(require.context('./', true, /\.\/\w+(?<!index)\.js$/))

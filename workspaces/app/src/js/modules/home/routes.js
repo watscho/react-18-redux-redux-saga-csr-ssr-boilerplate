@@ -1,13 +1,10 @@
-import { ctxImportToObject } from 'helpers/context'
+import { ctxToObject } from 'helpers/context'
 
-const modules = ctxImportToObject([
-  require.context('./', true, /\.\/views\/\w+\.jsx$/),
-  require.context('./', true, /\.\/helmets\/\w+\.jsx$/)
-])
+const modules = ctxToObject(
+  require.context('./', true, /\.\/(helmets|views)\/\w+\.jsx$/)
+)
 
-export default [
-  {
-    path: '/',
-    element: <modules.Home />
-  }
-]
+export default {
+  path: '/',
+  element: <modules.Home />
+}

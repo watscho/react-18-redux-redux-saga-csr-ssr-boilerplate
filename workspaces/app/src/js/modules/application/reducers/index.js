@@ -1,5 +1,5 @@
-import { ctxImportToObject } from 'helpers/context'
+import { ctxToObject } from 'helpers/context'
 
-export default ctxImportToObject(
+export default ctxToObject(
   require.context('./', true, /\.\/\w+(?<!index)\.js$/)
 )

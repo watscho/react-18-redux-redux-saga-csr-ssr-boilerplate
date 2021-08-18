@@ -1,70 +1,45 @@
-import { basename, dirname } from 'path'
+import { basename } from 'path'
 import SVG from 'react-inlinesvg'
 import camelCase from 'camelcase'
 
-export const ctxImportToObject = (contexts, { mergeValues = false } = {}) => {
-  let cache = {},
-    ctxs = contexts
-  if (!Array.isArray(ctxs)) ctxs = [contexts]
-  for (let i = 0; i < ctxs.length; i++) {
-    ctx(ctxs[i])
+export const ctxToObject = context => {
+  const keys = context.keys()
+  const obj = {}
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    const name = basename(key).split('.')[0]
+    const defaultExport = context(key).default
+    if (!defaultExport) continue
+    const modules = name !== 'index' ? { [name]: defaultExport } : defaultExport
+    Object.assign(obj, modules)
   }
-  function ctx(context) {
-    const keys = context.keys()
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i],
-        withBasename = basename(key).split('.')[0],
-        withDirname = dirname(key).split('/')[1]
-
-      let withName = withDirname
-      if (withBasename !== 'index') {
-        withName = withBasename
-      }
-
-      const defaultExport = context(key).default
-
-      if (defaultExport) cache[withName] = defaultExport
-    }
-  }
-  if (!mergeValues) return cache
-  let mergeCache = {}
-  for (let key in cache) {
-    const value = cache[key]
-    let obj = value
-    if (typeof value === 'function') {
-      obj = { [key]: cache[key] }
-    }
-    Object.assign(mergeCache, obj)
-  }
-  return mergeCache
+  return obj
 }
 
-export const ctxImportToArray = (context, { mergeValues = false } = {}) => {
-  let cache = []
+export const ctxToArray = context => {
   const keys = context.keys()
+  let arr = []
   for (let i = 0; i < keys.length; i++) {
-    cache.push(context(keys[i]).default)
+    const key = keys[i]
+    const defaultExport = context(key).default
+    let elements = defaultExport
+    if (!Array.isArray(defaultExport)) {
+      elements = [defaultExport]
+    }
+    arr = [...arr, ...elements]
   }
-  if (!mergeValues) return cache
-  let mergeCache = []
-  for (let j = 0; j < cache.length; j++) {
-    const value = cache[j]
-    let arr = value
-    if (typeof value !== 'object') arr = [value]
-    mergeCache.push(...arr)
-  }
-  return mergeCache
+  return arr
 }
 
-export const ctxImportToSvg = context => {
-  let cache = {}
+export const ctxToSvg = context => {
   const keys = context.keys()
+  const obj = {}
   for (let i = 0; i < keys.length; i++) {
-    const key = keys[i],
-      withBasename = camelCase(basename(key).split('.')[0], {
-        pascalCase: true
-      })
-    cache[withBasename] = ({ ...rest }) => <SVG {...rest} src={context(key)} />
+    const key = keys[i]
+    const name = camelCase(basename(key).split('.')[0], {
+      pascalCase: true
+    })
+    obj[name] = ({ ...rest }) => <SVG {...rest} src={context(key)} />
   }
-  return cache
+  return obj
 }
