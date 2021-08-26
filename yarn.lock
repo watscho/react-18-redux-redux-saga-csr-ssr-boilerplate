@@ -5131,10 +5131,10 @@ lilconfig@^2.0.3:
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.3.tgz#68f3005e921dafbd2a2afb48379986aa6d2579fd"
   integrity sha512-EHKqr/+ZvdKCifpNrJCKxBTgk5XupZA3y/aCPY9mxfgBzmgh93Mt/WqjjQ38oMxXuvDokaKiM3lAgvSH2sjtHg==
 
-limbo-css@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/limbo-css/-/limbo-css-4.1.2.tgz#789a8017a1e276c458d80c9c51bdfff6bdbde631"
-  integrity sha512-6l0vTKrkIjI6vkKI+KnE3OjzMfJVFkeqInXHkE3YJ8iZtHhEaZX27Kusq6S20ajfV9rf6K/FPWVWXZqOltcYMg==
+limbo-css@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/limbo-css/-/limbo-css-5.0.1.tgz#feb4859c08b9f7cbe77d00a3a9ad8135d64bebe1"
+  integrity sha512-0cO/sVWSYWvUQy6HdsVqg9U5a4LRxprjjCXkl2VN7N/DSkiYSGGx4+SqwzbW20jm1kGiuQY1AcXfyVqjMurawg==
 
 lines-and-columns@^1.1.6:
   version "1.1.6"

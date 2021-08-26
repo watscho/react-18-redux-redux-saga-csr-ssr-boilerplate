@@ -80,7 +80,7 @@
     "i18next": "^20.3.3",
     "i18next-browser-languagedetector": "^6.1.2",
     "i18next-http-middleware": "^3.1.4",
-    "limbo-css": "^4.1.2",
+    "limbo-css": "^5.0.1",
     "node-fetch": "^2.6.1",
     "path-browserify": "^1.0.1",
     "prop-types": "^15.7.2",
