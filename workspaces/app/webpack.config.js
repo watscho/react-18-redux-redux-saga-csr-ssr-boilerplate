@@ -5,7 +5,8 @@ const path = require('path')
 const {
   DefinePlugin,
   IgnorePlugin,
-  HotModuleReplacementPlugin
+  HotModuleReplacementPlugin,
+  optimize: { ModuleConcatenationPlugin }
 } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
@@ -22,7 +23,6 @@ const WebpackPwaManifest = require('@f-fjs/webpack-pwa-manifest')
 const { InjectManifest } = require('workbox-webpack-plugin')
 const RemovePlugin = require('remove-files-webpack-plugin')
 const PreloadWebpackPlugin = require('preload-webpack-plugin-stzhang')
-
 const pwaManifest = require('./public/manifest.json')
 
 const abs = str => path.resolve(__dirname, str)
@@ -82,7 +82,7 @@ const loaders = [
               useBuiltIns: 'entry',
               forceAllTransforms: true,
               loose: true,
-              modules: 'auto',
+              modules: false,
               corejs: 3,
               targets: {
                 node: 'current'
@@ -178,7 +178,8 @@ const plugins = [
       as: 'font',
       include: 'allAssets',
       fileWhitelist: [/\.woff2/]
-    })
+    }),
+  isProduction && new ModuleConcatenationPlugin()
 ].filter(Boolean)
 
 const devServer = {
@@ -207,6 +208,7 @@ const htmlWebpackPlugin = {
 const config = {
   mode,
   optimization: {
+    usedExports: true,
     minimize: isProduction,
     minimizer: [
       new TerserPlugin({

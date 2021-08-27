@@ -20,6 +20,11 @@
     "webpack5"
   ],
   "author": "Watscho Aiwasov",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss",
+    "./src/js/i18n/index.js"
+  ],
   "scripts": {
     "start": "webpack serve",
     "start:ssr": "cross-env SSR=true webpack --watch",
