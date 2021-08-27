@@ -33,4 +33,4 @@ module.hot
   ? createRoot(container).render(<Bootstrap />)
   : hydrateRoot(container, <Bootstrap />)
 
-// register()
+register()
