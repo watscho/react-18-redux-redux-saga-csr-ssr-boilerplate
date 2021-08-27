@@ -23,6 +23,7 @@ const WebpackPwaManifest = require('@f-fjs/webpack-pwa-manifest')
 const { InjectManifest } = require('workbox-webpack-plugin')
 const RemovePlugin = require('remove-files-webpack-plugin')
 const PreloadWebpackPlugin = require('preload-webpack-plugin-stzhang')
+
 const pwaManifest = require('./public/manifest.json')
 
 const abs = str => path.resolve(__dirname, str)
