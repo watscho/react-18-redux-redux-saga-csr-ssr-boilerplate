@@ -14,6 +14,7 @@ export const PostList = () => {
       {(loading || errors) && <p className={scss.loading}>Loading...</p>}
       {!loading && (
         <div className={scss.list}>
+          {/* key idx just for example */}
           {data.map(({ id, title, body }, idx) => (
             <PostItem key={idx} id={id} title={title} body={body} />
           ))}
