@@ -6,13 +6,13 @@ import { Helmet } from 'react-helmet-async'
 import { Application } from '../views/Application'
 
 import { setCookies } from '../actions'
-import { useAuthService, useAppDataService } from 'hooks/services'
+import { useAuthService /* useAppDataService */ } from 'hooks/services'
 import { useTranslation } from 'react-i18next'
 
 const DepInject = () => {
   useAuthService()
 
-  useAppDataService()
+  // useAppDataService()
 
   const dispatch = useDispatch()
 
