@@ -7,7 +7,7 @@ import { postUpdateRequested } from '../actions'
 
 import scss from 'scss/modules/posts'
 
-export const PostUpdateBlock = ({ id, title, body, blockName }) => {
+export const PostUpdateBlock = ({ id, title, body, loading, blockName }) => {
   const dispatch = useDispatch()
 
   const {
@@ -16,10 +16,12 @@ export const PostUpdateBlock = ({ id, title, body, blockName }) => {
     formState: { errors }
   } = useForm()
 
-  const onSubmit = ({ title, body }) => {
-    dispatch(postUpdateRequested({ id, data: { title, body } }))
-    dispatch(setVisibility({ name: blockName }))
-  }
+  const hideUpdateBlock = () => dispatch(setVisibility({ name: blockName }))
+
+  const onSubmit = ({ title, body }) =>
+    dispatch(
+      postUpdateRequested({ id, data: { title, body }, hideUpdateBlock })
+    )
 
   return (
     <div className={scss.formContainer}>
@@ -42,7 +44,9 @@ export const PostUpdateBlock = ({ id, title, body, blockName }) => {
             {...register('body', { required: true })}
           />
         </label>
-        <button type="submit">save</button>
+        <button type="submit" disabled={loading}>
+          {!loading ? 'save' : '...'}
+        </button>
       </form>
     </div>
   )
@@ -52,5 +56,6 @@ PostUpdateBlock.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
   blockName: PropTypes.string.isRequired
 }

@@ -6,21 +6,19 @@ import scss from 'scss/modules/posts'
 
 export const PostList = () => {
   const {
-    posts: { data, errors, loading }
+    posts: { byId, allIds, errors, loading }
   } = usePostsService()
 
+  if (loading || errors) {
+    return <p className={scss.loading}>Loading...</p>
+  }
+
   return (
-    <>
-      {(loading || errors) && <p className={scss.loading}>Loading...</p>}
-      {!loading && (
-        <div className={scss.list}>
-          {/* key idx just for example */}
-          {data.map(({ id, title, body }, idx) => (
-            <PostItem key={idx} id={id} title={title} body={body} />
-          ))}
-          {!data.length && <p className={scss.noRecord}>No records</p>}
-        </div>
-      )}
-    </>
+    <div className={scss.list}>
+      {allIds.map(id => (
+        <PostItem key={id} id={id} {...byId[id]} />
+      ))}
+      {!allIds.length && <p className={scss.noRecord}>No records</p>}
+    </div>
   )
 }

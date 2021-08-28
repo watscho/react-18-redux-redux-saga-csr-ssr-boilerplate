@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 
 import { postCreateRequested } from '../actions'
 
+import { PostCreateBtn } from './PostCreateBtn'
+
 import scss from 'scss/modules/posts'
 
 export const PostCreateBlock = () => {
@@ -15,10 +17,8 @@ export const PostCreateBlock = () => {
     reset
   } = useForm()
 
-  const onSubmit = ({ title, body }) => {
-    dispatch(postCreateRequested({ data: { title, body } }))
-    reset()
-  }
+  const onSubmit = ({ title, body }) =>
+    dispatch(postCreateRequested({ data: { title, body }, reset }))
 
   return (
     <div className={scss.createPost}>
@@ -45,7 +45,7 @@ export const PostCreateBlock = () => {
               {...register('body', { required: true })}
             />
           </label>
-          <button type="submit">create</button>
+          <PostCreateBtn />
         </form>
       </div>
     </div>

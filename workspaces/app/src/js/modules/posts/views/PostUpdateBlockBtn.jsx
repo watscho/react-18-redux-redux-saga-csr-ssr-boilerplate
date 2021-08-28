@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { setVisibility } from 'modules/application/actions'
 
-export const PostUpdateBtn = ({ blockName }) => {
+export const PostUpdateBlockBtn = ({ blockName }) => {
   const dispatch = useDispatch()
 
   const listenToggleUpdateBtn = () =>
@@ -16,6 +16,6 @@ export const PostUpdateBtn = ({ blockName }) => {
   )
 }
 
-PostUpdateBtn.propTypes = {
+PostUpdateBlockBtn.propTypes = {
   blockName: PropTypes.string.isRequired
 }

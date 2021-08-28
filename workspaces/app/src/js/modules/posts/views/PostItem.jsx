@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { IsDisplayed } from 'components'
-import { PostUpdateBtn } from './PostUpdateBtn'
+import { PostUpdateBlockBtn } from './PostUpdateBlockBtn'
 import { PostDeleteBtn } from './PostDeleteBtn'
 import { PostViewBlock } from './PostViewBlock'
 import { PostUpdateBlock } from './PostUpdateBlock'
 
 import scss from 'scss/modules/posts'
 
-export const PostItem = ({ id, title, body }) => {
+export const PostItem = ({ id, title, body, ...rest }) => {
   const blockName = `post-view-update-${id}`
 
   return (
@@ -19,9 +19,9 @@ export const PostItem = ({ id, title, body }) => {
         <div className={scss.actions}>
           <Link to={`/posts/${id}/view`}>view</Link>
           <IsDisplayed name={blockName}>
-            <PostUpdateBtn blockName={blockName} />
+            <PostUpdateBlockBtn blockName={blockName} />
           </IsDisplayed>
-          <PostDeleteBtn id={id} />
+          <PostDeleteBtn id={id} {...rest} />
         </div>
       </div>
       <IsDisplayed name={blockName}>
@@ -33,6 +33,7 @@ export const PostItem = ({ id, title, body }) => {
               id={id}
               title={title}
               body={body}
+              {...rest}
               blockName={blockName}
             />
           )

@@ -3,18 +3,19 @@ import PropTypes from 'prop-types'
 
 import { postDeleteRequested } from '../actions'
 
-export const PostDeleteBtn = ({ id }) => {
+export const PostDeleteBtn = ({ id, loading }) => {
   const dispatch = useDispatch()
 
   const listenDeleteBtn = () => dispatch(postDeleteRequested({ id }))
 
   return (
     <button type="button" onClick={listenDeleteBtn}>
-      delete
+      {!loading ? 'delete' : '...'}
     </button>
   )
 }
 
 PostDeleteBtn.propTypes = {
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  loading: PropTypes.bool
 }
