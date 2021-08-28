@@ -5,15 +5,14 @@ const initialState = {
 }
 
 export default function socket(state = initialState, action) {
-  const actionTypes = {
-    [SOCKET_SUCCEEDED]: {
-      ...state,
-      ...action.payload
-    },
-    default: state
-  }
+  switch (action.type) {
+    case SOCKET_SUCCEEDED:
+      return {
+        ...state,
+        ...action.payload
+      }
 
-  return Reflect.has(actionTypes, action.type)
-    ? actionTypes[action.type]
-    : actionTypes.default
+    default:
+      return state
+  }
 }

@@ -28,7 +28,7 @@ function* fetchPosts() {
 
     const response = yield call(postService.fetchPosts)
 
-    yield put(postsFetchSucceeded({ data: response.data }))
+    yield put(postsFetchSucceeded({ ...response.data }))
   } catch (errors) {
     yield put(postsFetchFailed({ errors }))
   }
@@ -38,11 +38,11 @@ function* fetchPost({ payload }) {
   try {
     const post = yield select(({ post }) => post)
 
-    if (post.data && parseInt(post.data.id) === parseInt(payload.id)) return
+    if (post.allIds && parseInt(post.allIds) === parseInt(payload.id)) return
 
     const response = yield call(postService.fetchPost, { payload })
 
-    yield put(postFetchSucceeded({ data: response.data }))
+    yield put(postFetchSucceeded({ ...response.data }))
   } catch (errors) {
     yield put(postFetchFailed({ errors }))
   }
@@ -52,7 +52,9 @@ function* createPost({ payload }) {
   try {
     const response = yield call(postService.createPost, { payload })
 
-    yield put(postCreateSucceeded({ data: response.data }))
+    yield put(postCreateSucceeded({ ...response.data }))
+
+    yield call(payload.reset)
   } catch (errors) {
     yield put(postCreateFailed({ errors }))
   }
@@ -62,7 +64,9 @@ function* updatePost({ payload }) {
   try {
     const response = yield call(postService.updatePost, { payload })
 
-    yield put(postUpdateSucceeded({ data: response.data }))
+    yield put(postUpdateSucceeded({ ...response.data }))
+
+    yield call(payload.hideUpdateBlock)
   } catch (errors) {
     yield put(postUpdateFailed({ errors }))
   }
@@ -72,7 +76,7 @@ function* deletePost({ payload }) {
   try {
     const response = yield call(postService.deletePost, { payload })
 
-    yield put(postDeleteSucceeded({ data: response.data }))
+    yield put(postDeleteSucceeded({ ...response.data }))
   } catch (errors) {
     yield put(postDeleteFailed({ errors }))
   }

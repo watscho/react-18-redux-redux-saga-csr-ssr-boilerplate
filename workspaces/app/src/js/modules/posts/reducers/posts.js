@@ -1,3 +1,5 @@
+import dotProp from 'dot-prop-immutable'
+
 import {
   POSTS_FETCH_SUCCEEDED,
   POSTS_FETCH_FAILED,
@@ -5,76 +7,69 @@ import {
 } from '../actions/types'
 
 import {
-  postCreateRequested,
   postCreateSucceeded,
+  postUpdateSucceeded,
+  postDeleteSucceeded,
   postUpdateRequested,
   postDeleteRequested
 } from '../actions'
 
 const initialState = {
-  data: [],
+  byId: {},
+  allIds: [],
   errors: undefined,
   loading: true
 }
 
 export default function posts(state = initialState, action) {
-  const actionTypes = {
-    [POSTS_FETCH_SUCCEEDED]: {
-      ...state,
-      ...action.payload,
-      loading: false
-    },
-    [POSTS_FETCH_FAILED]: {
-      ...state,
-      ...action.payload,
-      loading: false
-    },
-    [postCreateRequested().type]: {
-      ...state,
-      data: [
-        {
-          id: Infinity,
-          title: action.payload?.data?.title,
-          body: action.payload?.data?.body
-        },
-        ...state.data
-      ]
-    },
-    [postCreateSucceeded().type]: {
-      ...state,
-      data: state.data.map(({ id, title, body }) => {
-        let data = { id, title, body }
-        if (id === Infinity) {
-          data.id = parseInt(
-            `${action.payload?.data?.id}${Math.floor(Math.random() * 32767)}`
-          )
-        }
-        return data
-      })
-    },
-    [postUpdateRequested().type]: {
-      ...state,
-      data: state.data.map(({ id, title, body }) => {
-        let data = { id, title, body }
-        if (id === action.payload?.id) {
-          data.title = action.payload?.data?.title
-          data.body = action.payload?.data?.body
-        }
-        return data
-      })
-    },
-    [postDeleteRequested().type]: {
-      ...state,
-      data: state.data.filter(({ id }) => id !== action.payload?.id)
-    },
-    [RESET_POSTS]: {
-      ...state,
-      ...initialState
-    },
-    default: state
-  }
+  switch (action.type) {
+    case POSTS_FETCH_SUCCEEDED:
+      return { ...state, ...action.payload, loading: false }
 
-  return Reflect.has(actionTypes, action.type)
-    ? actionTypes[action.type]
-    : actionTypes.default
+    case POSTS_FETCH_FAILED:
+      return { ...state, ...action.payload, loading: false }
+
+    case postCreateSucceeded().type:
+      return {
+        ...state,
+        byId: {
+          ...action.payload.byId,
+          ...state.byId
+        },
+        allIds: [...action.payload.allIds, ...state.allIds]
+      }
+
+    case postUpdateRequested().type:
+      return dotProp.set(state, `byId.${action.payload.id}`, {
+        ...state.byId[action.payload.id],
+        loading: true
+      })
+
+    case postUpdateSucceeded().type:
+      return dotProp.set(state, `byId.${action.payload.allIds}`, {
+        ...action.payload.byId[action.payload.allIds],
+        loading: false
+      })
+
+    case postDeleteRequested().type:
+      return dotProp.set(state, `byId.${action.payload.id}`, {
+        ...state.byId[action.payload.id],
+        loading: true
+      })
+
+    case postDeleteSucceeded().type:
+      return dotProp.delete(state, [
+        'allIds',
+        state.allIds.findIndex(id => id === action.payload.id)
+      ])
+
+    case RESET_POSTS:
+      return {
+        ...state,
+        ...initialState
+      }
+
+    default:
+      return state
+  }
 }

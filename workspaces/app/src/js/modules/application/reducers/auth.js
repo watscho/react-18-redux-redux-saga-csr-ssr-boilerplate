@@ -12,33 +12,38 @@ const initialState = {
 }
 
 export default function auth(state = initialState, action) {
-  const actionTypes = {
-    [AUTH_FETCH_SUCCEEDED]: {
-      ...state,
-      ...action.payload,
-      loading: false
-    },
-    [AUTH_FETCH_FAILED]: {
-      ...state,
-      ...action.payload,
-      errors: true,
-      loading: false
-    },
-    [AUTH_LOGOUT_SUCCEEDED]: {
-      ...state,
-      ...initialState,
-      loading: false
-    },
-    [AUTH_LOGOUT_FAILED]: {
-      ...state,
-      ...action.payload,
-      errors: true,
-      loading: false
-    },
-    default: state
-  }
+  switch (action.type) {
+    case AUTH_FETCH_SUCCEEDED:
+      return {
+        ...state,
+        ...action.payload,
+        loading: false
+      }
 
-  return Reflect.has(actionTypes, action.type)
-    ? actionTypes[action.type]
-    : actionTypes.default
+    case AUTH_FETCH_FAILED:
+      return {
+        ...state,
+        ...action.payload,
+        errors: true,
+        loading: false
+      }
+
+    case AUTH_LOGOUT_SUCCEEDED:
+      return {
+        ...state,
+        ...action.payload,
+        loading: false
+      }
+
+    case AUTH_LOGOUT_FAILED:
+      return {
+        ...state,
+        ...action.payload,
+        errors: true,
+        loading: false
+      }
+
+    default:
+      return state
+  }
 }

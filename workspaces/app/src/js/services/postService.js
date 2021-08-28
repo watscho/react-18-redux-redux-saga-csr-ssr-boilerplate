@@ -37,12 +37,21 @@ export const postService = {
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        title: payload.title,
-        body: payload.body
+        title: payload.data.title,
+        body: payload.data.body
       })
     })
 
-    const data = await response.json()
+    // Because server returns only id.
+    // const data = await response.json()
+
+    // Fake server response
+    const data = {
+      id: Math.floor(Math.random() * 32767),
+      userId: 1,
+      title: payload.data.title,
+      body: payload.data.body
+    }
 
     return {
       data: response.ok ? postTransformer.createPost(data) : data,
@@ -62,10 +71,19 @@ export const postService = {
       })
     })
 
-    const data = await response.json()
+    // Because server returns only id.
+    // const data = await response.json()
+
+    // Fake server response
+    const data = {
+      id: payload.id,
+      userId: 1,
+      title: payload.data.title,
+      body: payload.data.body
+    }
 
     return {
-      data,
+      data: response.ok ? postTransformer.updatePost(data) : data,
       ok: response.ok,
       status: response.status
     }
@@ -76,10 +94,16 @@ export const postService = {
 
     const response = await fetch(url, { method: 'DELETE' })
 
-    const data = await response.json()
+    // Because server returns empty {}.
+    // const data = await response.json()
+
+    // Fake server response
+    const data = {
+      id: payload.id
+    }
 
     return {
-      data,
+      data: response.ok ? postTransformer.deletePost(data) : data,
       ok: response.ok,
       status: response.status
     }
