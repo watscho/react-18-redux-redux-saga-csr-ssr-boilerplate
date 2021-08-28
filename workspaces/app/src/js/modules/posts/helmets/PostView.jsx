@@ -8,12 +8,16 @@ import { usePostService } from 'hooks/services'
 export default () => {
   const { t } = useTranslation()
 
-  const { post } = usePostService()
+  const {
+    post: { byId, allIds }
+  } = usePostService()
+
+  const post = byId[allIds]
 
   return (
     <>
       <Helmet
-        title={t('postViewPage', { title: post.data?.title || '...' })}
+        title={t('postViewPage', { title: post?.title || '...' })}
         description="Post view page description"
       />
       <PostView />
