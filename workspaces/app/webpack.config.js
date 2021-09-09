@@ -158,6 +158,10 @@ const loaders = [
   {
     test: /\.(jpe?g|png|gif|ttf|eot|svg|woff?2)$/,
     type: 'asset/resource'
+  },
+  {
+    resourceQuery: /raw/,
+    type: 'asset/source'
   }
 ]
 
