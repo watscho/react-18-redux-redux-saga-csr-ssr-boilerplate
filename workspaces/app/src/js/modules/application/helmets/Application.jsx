@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 
 import { Application } from '../views/Application'
 
 import { setCookies } from '../actions'
 import { useAuthService /* useAppDataService */ } from 'hooks/services'
-import { useTranslation } from 'react-i18next'
 
 const DepInject = () => {
   useAuthService()
