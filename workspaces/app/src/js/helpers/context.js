@@ -1,4 +1,4 @@
-import { basename } from 'path'
+import { basename, dirname } from 'path'
 import SVG from 'react-inlinesvg'
 import camelCase from 'camelcase'
 
@@ -10,8 +10,15 @@ export const ctxToObject = context => {
     const name = basename(key).split('.')[0]
     const defaultExport = context(key).default
     if (!defaultExport) continue
-    const modules = name !== 'index' ? { [name]: defaultExport } : defaultExport
-    Object.assign(obj, modules)
+    let module = defaultExport
+    if (name !== 'index') {
+      module = { [name]: defaultExport }
+    }
+    if (typeof module === 'function') {
+      const name = dirname(key).split('/')[1]
+      module = { [name]: defaultExport }
+    }
+    Object.assign(obj, module)
   }
   return obj
 }
