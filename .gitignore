@@ -1,9 +1,9 @@
 node_modules
 /public
 
-.DS_Store
-
 package-lock.json
-yarn.lock
+*.lock
 
 *.log
+
+.DS_Store

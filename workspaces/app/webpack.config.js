@@ -5,6 +5,7 @@ const path = require('path')
 const {
   DefinePlugin,
   IgnorePlugin,
+  WatchIgnorePlugin,
   HotModuleReplacementPlugin,
   optimize: { ModuleConcatenationPlugin }
 } = require('webpack')
@@ -23,6 +24,7 @@ const WebpackPwaManifest = require('@f-fjs/webpack-pwa-manifest')
 const { InjectManifest } = require('workbox-webpack-plugin')
 const RemovePlugin = require('remove-files-webpack-plugin')
 const PreloadWebpackPlugin = require('preload-webpack-plugin-stzhang')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const pwaManifest = require('./public/manifest.json')
 
@@ -66,53 +68,16 @@ const paths = {
 
 const loaders = [
   {
-    test: /\.(js|jsx)$/,
+    test: /\.(ts|tsx)$/,
     exclude: /node_modules/,
-    use: {
-      loader: 'babel-loader',
-      options: {
-        env: {
-          production: {
-            plugins: ['transform-react-remove-prop-types']
-          }
-        },
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              useBuiltIns: 'entry',
-              forceAllTransforms: true,
-              loose: true,
-              modules: false,
-              corejs: 3,
-              targets: {
-                node: 'current'
-              }
-            }
-          ],
-          [
-            '@babel/preset-react',
-            {
-              runtime: 'automatic'
-            }
-          ]
-        ],
-        plugins: [
-          [
-            '@babel/plugin-transform-runtime',
-            {
-              corejs: 3
-            }
-          ]
-        ]
-      }
-    }
+    use: 'ts-loader'
   },
   {
     test: /\.(css|s[ac]ss)$/,
     exclude: /node_modules/,
     use: [
       MiniCssExtractPlugin.loader,
+      "@teamsupercell/typings-for-css-modules-loader",
       {
         loader: 'css-loader',
         options: {
@@ -177,7 +142,13 @@ const plugins = [
   new DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(mode)
   }),
-  new IgnorePlugin(/^\.\/locale$/, /moment$/),
+  new IgnorePlugin({
+    resourceRegExp: /^\.\/locale$/,
+    contextRegExp: /moment$/
+  }),
+  new WatchIgnorePlugin({
+    paths: [/scss\.d\.ts$/]
+  }),
   isProduction &&
     new PreloadWebpackPlugin({
       as: 'font',
@@ -188,15 +159,15 @@ const plugins = [
 ].filter(Boolean)
 
 const devServer = {
-  contentBase: abs('public'),
+  static: {
+    directory: abs('public'),
+  },
   compress: true,
-  historyApiFallback: true,
-  hot: true,
-  https: false,
-  noInfo: true,
   host: 'localhost',
   port: 3000,
-  before: () => fs.rm(wsAbs('./public'), { recursive: true }, () => {})
+  historyApiFallback: true,
+  https: false,
+  onBeforeSetupMiddleware: () => fs.rm(wsAbs('./public'), { recursive: true }, () => {})
 }
 
 const htmlWebpackPlugin = {
@@ -206,7 +177,7 @@ const htmlWebpackPlugin = {
   title: appName,
   filename: isSSR ? 'index' : 'index.html',
   favicon: abs('public/favicon.ico'),
-  template: abs('src/js/entry/template.ejs'),
+  template: abs('src/ts/entry/template.ejs'),
   publicPath: paths.public
 }
 
@@ -263,24 +234,13 @@ const config = {
     }
   },
   resolve: {
-    alias: {
-      app: abs('src/js'),
-      scss: abs('src/scss'),
-      imgs: abs('src/imgs'),
-      fonts: abs('src/fonts'),
-      modules: abs('src/js/modules'),
-      helpers: abs('src/js/helpers'),
-      services: abs('src/js/services'),
-      transformers: abs('src/js/transformers'),
-      tools: abs('src/js/tools'),
-      consts: abs('src/js/consts'),
-      hooks: abs('src/js/hooks'),
-      components: abs('src/js/components')
-    },
     fallback: {
       path: require.resolve('path-browserify')
     },
-    extensions: ['.js', '.jsx', '.json', '.scss']
+    extensions: ['.ts', '.tsx', '.js', '.json', '.scss'],
+    plugins:[
+      new TsconfigPathsPlugin({ configFile: abs('tsconfig.json') })
+    ]
   },
   context: __dirname,
   devtool: useSourceMap ? 'source-map' : false
@@ -289,7 +249,7 @@ const config = {
 const client = {
   name: 'client',
   target: 'web',
-  entry: abs('src/js'),
+  entry: abs('src/ts'),
   output: {
     path: wsAbs('public'),
     filename: paths.js,
@@ -328,7 +288,7 @@ const client = {
       }),
     isProduction &&
       new InjectManifest({
-        swSrc: abs('src/js/service-worker.js'),
+        swSrc: abs('src/ts/service-worker.ts'),
         dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
         exclude: [/asset-manifest\.json$/],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
