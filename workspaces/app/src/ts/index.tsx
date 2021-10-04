@@ -47,6 +47,6 @@ if (!container) {
 
 !process.env.SSR
   ? ReactDOM.createRoot(container).render(<Bootstrap />)
-  : ReactDOM.hydrateRoot(container, <Bootstrap />)
+  : //ReactDOM.hydrateRoot(container, <Bootstrap />)
 
 register()
